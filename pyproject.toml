@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=65"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bumblebees"
+version = "1.0.0"
+description = "Bourdons des Pyrénées : réchauffement, paysages et déplacement en altitude (1889 → 2005-06)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Youssef Mir" }]
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scipy>=1.10",
+    "statsmodels>=0.13.5",
+    "matplotlib>=3.7",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "NPY", "PD"]
+ignore = ["PD010", "PD013", "PD901"]
+src = ["src", "tests", "scripts"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
