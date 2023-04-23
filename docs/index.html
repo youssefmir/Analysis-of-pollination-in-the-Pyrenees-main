@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bourdons des Pyrénées</title>
+<meta name="description" content="En 115 ans, la vallée de Gavarnie s'est réchauffée de 2,3 °C et les bourdons butinent en moyenne 118 m plus haut qu'en 1889. Ré-analyse interactive des données de Marshall et al. (2020).">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Les bourdons montent — Pyrénées, 1889 → 2005-06">
+<meta property="og:description" content="Réchauffement, fermeture des prairies et déplacement des bourdons en altitude dans la vallée de Gavarnie-Gèdre.">
+<meta property="og:image" content="https://youssefmir.github.io/Analysis-of-pollination-in-the-Pyrenees-main/cover.png">
+<meta property="og:url" content="https://youssefmir.github.io/Analysis-of-pollination-in-the-Pyrenees-main/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap">
+<link rel="stylesheet" href="frame.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+<a class="skip-link" href="#contenu">Aller au contenu</a>
+
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="#top">Bourdons des Pyrénées <span class="brand__sub">Youssef Mir</span></a>
+    <nav class="sitenav" aria-label="Sections">
+      <a href="#climat">Climat</a>
+      <a href="#paysages">Paysages</a>
+      <a href="#altitudes">Altitudes</a>
+      <a href="#temperatures">Températures</a>
+      <a href="#diversite">Diversité</a>
+      <a href="#fleurs">Fleurs</a>
+    </nav>
+    <a class="codelink" href="https://github.com/youssefmir/Analysis-of-pollination-in-the-Pyrenees-main">Code ↗</a>
+  </div>
+</header>
+
+<main id="contenu">
+
+  <!-- ============ Hero ============ -->
+  <section class="hero" id="hero" aria-labelledby="hero-title">
+    <canvas class="hero__contours" aria-hidden="true"></canvas>
+    <div class="wrap hero__inner">
+      <div class="hero__text">
+        <p class="eyebrow">Gavarnie-Gèdre · août 1889 → août 2005-06</p>
+        <h1 class="hero__title" id="hero-title">Les bourdons <em>montent</em></h1>
+        <p class="lede hero__lede">En un siècle, la vallée s'est réchauffée de <strong data-k="warming">2,3&nbsp;°C</strong>&nbsp;: les températures de 1901-1910 se trouvent aujourd'hui <strong data-k="isotherm">440&nbsp;m</strong> plus haut. Les bourdons ont suivi, mais de <strong data-k="bees">118&nbsp;m</strong> seulement en moyenne.</p>
+        <div class="kpis hero__kpis">
+          <div class="kpi"><span class="kpi__value" data-k="warming-kpi">+2,3<span class="kpi__unit">°C</span></span><span class="kpi__label">réchauffement annuel, 1901-1910 → 2000-2009</span></div>
+          <div class="kpi"><span class="kpi__value" data-k="isotherm-kpi">+440<span class="kpi__unit">m</span></span><span class="kpi__label">montée des isothermes (même température, plus haut)</span></div>
+          <div class="kpi kpi--accent"><span class="kpi__value" data-k="bees-kpi">+118<span class="kpi__unit">m</span></span><span class="kpi__label">altitude moyenne des bourdons, corrigée de l'effort · 9 espèces sur 12</span></div>
+          <div class="kpi"><span class="kpi__value" data-k="plants-kpi">+210<span class="kpi__unit">m</span></span><span class="kpi__label">altitude des plantes qu'ils visitent · 13 sur 14</span></div>
+        </div>
+      </div>
+      <figure class="hero__figure" aria-labelledby="hero-fig-caption">
+        <div class="hero__plot" id="hero-plot" role="img" aria-label="Altitude moyenne des 12 espèces de bourdons en 1889 et en 2005-06, devant un profil de montagne"></div>
+        <figcaption class="hero__caption" id="hero-fig-caption">
+          <span class="key key--p1889"></span>1889 <span class="arrow" aria-hidden="true">→</span> <span class="key key--p2005"></span>2005-06&nbsp;: altitude moyenne de chaque espèce, corrigée de l'effort d'échantillonnage. Silhouette schématique, altitudes des sommets réelles.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 1. Climat ============ -->
+  <section class="section" id="climat" aria-labelledby="climat-title">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">1 · Climat</p>
+        <h2 class="title-md" id="climat-title">Une vallée qui a gagné 2,3&nbsp;°C</h2>
+        <div class="prose">
+          <p>Les températures annuelles modélisées pour <strong>177 cellules de 1&nbsp;km²</strong> entre 1&nbsp;024 et 2&nbsp;190&nbsp;m augmentent de <strong data-k="slope">+0,20&nbsp;°C par décennie</strong> depuis 1901. La hausse s'accélère à partir des années 1980.</p>
+          <p>Entre deux points de la vallée, on perd 0,52&nbsp;°C tous les 100&nbsp;m. Le réchauffement revient donc à faire monter les isothermes d'environ <strong>440&nbsp;m</strong>&nbsp;: c'est la hauteur qu'une espèce aurait dû gravir pour garder son climat de 1901-1910.</p>
+        </div>
+      </div>
+      <figure class="fig" id="fig-climate">
+        <div class="fig__head">
+          <div class="fig__titles">
+            <h3 class="fig__title">Température annuelle moyenne de la zone d'étude, 1901-2009</h3>
+            <p class="fig__sub">Chaque bande = une année, colorée selon l'écart à la moyenne 1901-1930. Survolez pour lire les valeurs.</p>
+          </div>
+        </div>
+        <div class="fig__plot" id="climate-plot"></div>
+        <p class="fig__note">Source&nbsp;: ClimateEU v4.63 (Marshall <i>et al.</i>, 2020), moyenne des 177 cellules. Tendance&nbsp;: moindres carrés, IC à 95&nbsp;% de Newey-West. Projection&nbsp;: prolongement linéaire, intervalle de prédiction à 95&nbsp;%.</p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 2. Paysages ============ -->
+  <section class="section" id="paysages" aria-labelledby="paysages-title">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">2 · Paysages</p>
+        <h2 class="title-md" id="paysages-title">Des prairies qui se referment</h2>
+        <div class="prose">
+          <p>Sous 1&nbsp;800&nbsp;m, la forêt gagne sur les prairies de fauche et les pâturages. En zone montagnarde, elle passe de <strong>22&nbsp;% à 67&nbsp;%</strong> des cellules entre 1910 et 2010, et la prairie de 67&nbsp;% à 33&nbsp;%. Plus haut, la prairie alpine se maintient.</p>
+          <p>C'est la marque de la déprise pastorale. Pour les bourdons, cela veut dire <strong>moins de prairies fleuries en bas des versants</strong>&nbsp;: une seconde raison de monter, qui s'ajoute au climat.</p>
+        </div>
+      </div>
+      <figure class="fig" id="fig-landuse">
+        <div class="fig__head">
+          <div class="fig__titles">
+            <h3 class="fig__title">Occupation du sol par décennie et par zone d'altitude</h3>
+            <p class="fig__sub">Part des cellules de 1&nbsp;km² (reconstitution HILDA), 1910 → 2010</p>
+          </div>
+          <ul class="legend" id="landuse-legend"></ul>
+        </div>
+        <div class="fig__plot landuse" id="landuse-plot"></div>
+        <p class="fig__note" id="landuse-note">Test du χ² entre 1910 et 2010.</p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 3. Altitudes ============ -->
+  <section class="section" id="altitudes" aria-labelledby="altitudes-title">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">3 · Altitudes</p>
+        <h2 class="title-md" id="altitudes-title">Ils montent, mais moins vite que le climat</h2>
+        <div class="prose">
+          <p>En 1889, MacLeod a surtout herborisé autour de Gèdre (1&nbsp;000-1&nbsp;200&nbsp;m)&nbsp;; en 2005-2006, l'effort s'est porté vers 1&nbsp;400-1&nbsp;800&nbsp;m. Comparer les moyennes brutes reviendrait à mesurer où l'on a cherché. On rééchantillonne donc chaque tranche de 200&nbsp;m pour égaliser l'effort (méthode de Chen <i>et al.</i>, 1&nbsp;000 tirages).</p>
+          <p>Résultat&nbsp;: <strong data-k="shift-sentence">+118&nbsp;m en moyenne</strong> (IC 95&nbsp;%&nbsp;: 3-233&nbsp;m), 9 espèces sur 12 plus haut, contre ~440&nbsp;m pour les isothermes. <i>B. soroeensis</i> fait exception&nbsp;: sa moyenne baisse, mais son aire s'étend vers le bas comme vers le haut.</p>
+        </div>
+      </div>
+      <div class="controls" role="group" aria-label="Mode de calcul">
+        <div class="seg" id="shift-mode">
+          <button type="button" aria-pressed="true" data-mode="resampled">Corrigé de l'effort</button>
+          <button type="button" aria-pressed="false" data-mode="raw">Moyennes brutes</button>
+        </div>
+      </div>
+      <div class="altitudes">
+        <figure class="fig" id="fig-dumbbell">
+          <div class="fig__head">
+            <div class="fig__titles">
+              <h3 class="fig__title">Altitude moyenne par espèce, 1889 → 2005-06</h3>
+              <p class="fig__sub">Cliquez sur une espèce pour voir ses observations.</p>
+            </div>
+            <ul class="legend" id="dumbbell-legend"></ul>
+          </div>
+          <div class="fig__plot" id="dumbbell-plot"></div>
+          <p class="fig__note" id="dumbbell-note"></p>
+        </figure>
+        <aside class="species-card" id="species-card" aria-live="polite">
+          <div class="field">
+            <label for="species-select">Espèce</label>
+            <select id="species-select"></select>
+          </div>
+          <h3 class="species-card__name" id="species-name"></h3>
+          <dl class="species-card__stats" id="species-stats"></dl>
+          <div class="fig__plot" id="species-plot"></div>
+          <p class="fig__note">Chaque point = un bourdon observé sur une fleur (altitude du relevé). Trait = moyenne brute de la période.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. Températures ============ -->
+  <section class="section" id="temperatures" aria-labelledby="temperatures-title">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">4 · Températures</p>
+        <h2 class="title-md" id="temperatures-title">Monter pour rester au frais</h2>
+        <div class="prose">
+          <p>À altitude égale, le mois d'août s'est réchauffé de <strong data-k="aug-warming">+2,3&nbsp;°C</strong>. Pourtant, les bourdons ne butinent que <strong>+1,3&nbsp;°C</strong> plus chaud qu'en 1889 en moyenne&nbsp;: en montant, ils ont compensé une partie du réchauffement.</p>
+          <p>8 espèces sur 12 vivent aujourd'hui significativement plus au chaud (Kruskal-Wallis, correction de Holm). Les 4 autres sont justement celles qui sont le plus montées.</p>
+        </div>
+      </div>
+      <figure class="fig" id="fig-niche">
+        <div class="fig__head">
+          <div class="fig__titles">
+            <h3 class="fig__title">Déplacement en altitude et réchauffement « subi », par espèce</h3>
+            <p class="fig__sub">Température moyenne d'août au point d'observation&nbsp;: écart 2005-06 − 1889</p>
+          </div>
+          <ul class="legend" id="niche-legend"></ul>
+        </div>
+        <div class="fig__plot" id="niche-plot"></div>
+        <p class="fig__note">Températures d'août modélisées (décennies 1901-1910 et 2001-2010) à l'emplacement de chaque relevé. La droite indique l'écart attendu si seule l'altitude change (réchauffement à altitude égale − gradient de 0,49&nbsp;°C par 100&nbsp;m).</p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 5. Diversité ============ -->
+  <section class="section" id="diversite" aria-labelledby="diversite-title">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">5 · Diversité</p>
+        <h2 class="title-md" id="diversite-title">Autant d'espèces, à effort égal</h2>
+        <div class="prose">
+          <p>MacLeod a noté 286 bourdons dans 12 lieux-dits&nbsp;; l'équipe de 2005-2006 en a observé 568 dans 213 parcelles de 15&nbsp;minutes. Ramenées au même effectif, les deux communautés ont <strong>la même richesse et la même équitabilité</strong>.</p>
+          <p>Une limite importante&nbsp;: le fichier publié ne garde que les 12 espèces présentes aux deux périodes. Il ne permet donc pas de conclure sur des espèces perdues ou gagnées.</p>
+        </div>
+      </div>
+      <div class="two-col">
+        <figure class="fig" id="fig-effort">
+          <div class="fig__head">
+            <div class="fig__titles">
+              <h3 class="fig__title">Où a-t-on cherché&nbsp;?</h3>
+              <p class="fig__sub">Bourdons observés par tranche de 200&nbsp;m</p>
+            </div>
+          </div>
+          <div class="fig__plot" id="effort-plot"></div>
+        </figure>
+        <figure class="fig" id="fig-rarefaction">
+          <div class="fig__head">
+            <div class="fig__titles">
+              <h3 class="fig__title">Courbes de raréfaction</h3>
+              <p class="fig__sub">Nombre d'espèces attendu selon le nombre d'individus tirés (IC 95&nbsp;%)</p>
+            </div>
+          </div>
+          <div class="fig__plot" id="rarefaction-plot"></div>
+          <p class="fig__note">Espérance de Hurlbert (1971), variance de Heck <i>et al.</i> (1975).</p>
+        </figure>
+      </div>
+      <ul class="legend legend--section" id="diversity-legend"></ul>
+    </div>
+  </section>
+
+  <!-- ============ 6. Fleurs ============ -->
+  <section class="section" id="fleurs" aria-labelledby="fleurs-title">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">6 · Fleurs</p>
+        <h2 class="title-md" id="fleurs-title">Les fleurs butinées ont pris de la hauteur</h2>
+        <div class="prose">
+          <p>Les plantes où l'on observe les bourdons sont <strong data-k="plants-sentence">210&nbsp;m plus haut</strong> en moyenne (13 sur 14, corrigé de l'effort). C'est plus que leurs visiteurs. Sur l'aconit et le chardon, le cortège de bourdons a aussi changé.</p>
+        </div>
+      </div>
+      <div class="controls" role="group" aria-label="Plante">
+        <div class="seg" id="plant-select"></div>
+      </div>
+      <div class="two-col two-col--plants">
+        <figure class="fig" id="fig-profile">
+          <div class="fig__head">
+            <div class="fig__titles">
+              <h3 class="fig__title" id="profile-title">Profil de visite le long de la pente</h3>
+              <p class="fig__sub">Part des visites par tranche de 200&nbsp;m</p>
+            </div>
+          </div>
+          <div class="fig__plot" id="profile-plot"></div>
+        </figure>
+        <figure class="fig" id="fig-visitors">
+          <div class="fig__head">
+            <div class="fig__titles">
+              <h3 class="fig__title">Qui la visite&nbsp;?</h3>
+              <p class="fig__sub" id="visitors-sub">Visites par espèce de bourdon</p>
+            </div>
+          </div>
+          <div class="fig__plot" id="visitors-plot"></div>
+        </figure>
+      </div>
+      <ul class="legend legend--section" id="plants-legend"></ul>
+    </div>
+  </section>
+
+  <!-- ============ Conclusion ============ -->
+  <section class="section conclusion" id="conclusion" aria-labelledby="conclusion-title">
+    <div class="wrap">
+      <div class="section__head">
+        <p class="eyebrow">En résumé</p>
+        <h2 class="title-md" id="conclusion-title">Une montée réelle, mais en retard sur le climat</h2>
+      </div>
+      <div class="conclusion__grid">
+        <div class="prose">
+          <h3>Ce que montrent les données</h3>
+          <ul>
+            <li>Le climat de la vallée a gagné 2,3&nbsp;°C&nbsp;; à température égale, il faut monter d'environ 440&nbsp;m.</li>
+            <li>Corrigés de l'effort, les bourdons sont montés de 118&nbsp;m et les fleurs qu'ils butinent de 210&nbsp;m. Ces chiffres sont proches de ceux de l'article (+129&nbsp;m et +229&nbsp;m).</li>
+            <li>Ce retard se paie&nbsp;: en août, ils butinent 1,3&nbsp;°C plus chaud qu'en 1889.</li>
+            <li>La forêt referme les prairies de basse altitude. Climat et paysage poussent dans le même sens et ne peuvent pas être séparés ici.</li>
+          </ul>
+        </div>
+        <div class="prose">
+          <h3>Limites</h3>
+          <ul>
+            <li>Les deux protocoles diffèrent, et les lieux exacts de MacLeod sont inconnus.</li>
+            <li>Les températures sont modélisées (ClimateEU), avec plus d'incertitude avant 1950.</li>
+            <li>Le fichier se limite aux 12 espèces communes aux deux inventaires.</li>
+            <li>L'altitude des plantes est celle des visites, pas leur aire de répartition.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div>
+      <h2>Données</h2>
+      <ul>
+        <li><a href="https://github.com/lmar116/PyreneesBumblebees">Marshall <i>et al.</i> (2020)</a>, <a href="https://doi.org/10.1098/rspb.2020.2201"><i>Proc. R. Soc. B</i> 287&nbsp;: 20202201</a></li>
+        <li>Bourdons&nbsp;: MacLeod (1889) et Biesmeijer <i>et al.</i> (2005-2006)</li>
+        <li>Climat&nbsp;: ClimateEU v4.63 · occupation du sol&nbsp;: HILDA</li>
+        <li>Données publiées avec l'article, réutilisées avec citation</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Méthode</h2>
+      <ul>
+        <li><a href="https://github.com/youssefmir/Analysis-of-pollination-in-the-Pyrenees-main/blob/main/notebooks/bourdons_pyrenees.ipynb">Notebook d'analyse</a></li>
+        <li>Tendance MCO (Newey-West) · χ² · raréfaction de Hurlbert</li>
+        <li>Kruskal-Wallis + Holm · rééchantillonnage de Chen <i>et al.</i> (2011)</li>
+      </ul>
+    </div>
+    <div>
+      <h2>Projet</h2>
+      <ul>
+        <li>TP d'analyse de données&nbsp;: pollinisation par les bourdons sauvages</li>
+        <li>Youssef Mir · 2023</li>
+        <li><a href="https://github.com/youssefmir/Analysis-of-pollination-in-the-Pyrenees-main">Code source ↗</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="frame.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
