@@ -67,6 +67,11 @@ def _climate_block(climate: pd.DataFrame) -> dict:
         "lapse_r2": round(lapse_r2, 3),
         "isotherm_shift": round(clim.isotherm_shift(warming, lapse)),
         "n_cells": int(climate["cell_id"].nunique()),
+        "profiles": [
+            {"period": f"{start}-{end}", "a": round(a, 4), "b": round(b, 7)}
+            for start, end in ((1901, 1910), (2000, 2009))
+            for a, b in [clim.temperature_profile(climate, start, end)]
+        ],
     }
 
 

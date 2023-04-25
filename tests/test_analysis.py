@@ -68,3 +68,12 @@ def test_resampling_removes_pure_effort_artefact():
     assert raw["2005-06"] - raw["1889"] > 0  # artefact d'effort sur les moyennes brutes
     corrected = shifts.resampled_shifts(toy, n_resamples=20)
     assert corrected["shift"].iloc[0] == pytest.approx(0.0)
+
+
+def test_temperature_profiles_shift_isotherms_upward():
+    climate_table = data.load_climate()
+    a_old, b_old = climate.temperature_profile(climate_table, 1901, 1910)
+    a_new, b_new = climate.temperature_profile(climate_table, 2000, 2009)
+    assert b_old < 0 and b_new < 0  # il fait plus froid en montant
+    # la même température (4 °C) se trouve plus haut en 2000-2009 qu'en 1901-1910
+    assert (4 - a_new) / b_new - (4 - a_old) / b_old > 400

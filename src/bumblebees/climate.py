@@ -82,6 +82,17 @@ def lapse_rate(climate: pd.DataFrame, column: str = "t_mean") -> tuple[float, fl
     return float(res.slope * 100), float(res.rvalue**2)
 
 
+def temperature_profile(climate: pd.DataFrame, start: int, end: int) -> tuple[float, float]:
+    """Droite ``température = a + b × altitude`` entre cellules, moyennée sur [start, end].
+
+    Renvoie (a en °C, b en °C par mètre) ; sert à tracer les isothermes d'une période.
+    """
+    window = climate[climate["year"].between(start, end)]
+    cells = window.groupby("cell_id")[["elevation", "t_mean"]].mean()
+    res = stats.linregress(cells["elevation"], cells["t_mean"])
+    return float(res.intercept), float(res.slope)
+
+
 def isotherm_shift(warming: float, lapse_per_100m: float) -> float:
     """Dénivelé (m) qu'il faut gravir pour retrouver la température d'avant le réchauffement."""
     return float(warming / -lapse_per_100m * 100)
