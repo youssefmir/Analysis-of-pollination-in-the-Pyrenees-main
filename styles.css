@@ -1,0 +1,863 @@
+/* ==========================================================================
+   Bourdons des Pyrénées
+   Direction : carte topographique × carnet de naturaliste.
+   Mise en page : colonne de texte éditoriale (~62 caractères), graphiques
+   larges ou pleine largeur ; un récit déroulant sur la montagne ; une bande
+   sombre pour le réchauffement.
+   ========================================================================== */
+
+:root {
+  /* Papier de carte, encre ardoise, ambre de bourdon */
+  --bg: #f3f5f1;
+  --surface: #fbfcfa;
+  --ink: #17232c;
+  --ink-2: #3c4b54;
+  --muted: #5f7079;
+  --line: #d9e0db;
+  --axis: #b4bfb9;
+  --accent: #a96800;
+  --accent-ink: #ffffff;
+
+  /* Données */
+  --p1889: #3567ad;
+  --p2005: #c27800;
+  --plant: #2f7d4a;
+  --forest: #1a7a4f;
+  --grass: #84ab25;
+  --rock: #a8692f;
+
+  /* Relief et cartographie */
+  --ridge-far: #e2e8e6;
+  --ridge-mid: #d3ddd9;
+  --ridge-near: #c3d0c6;
+  --snow: #fbfcfa;
+  --contour: rgba(140, 104, 58, 0.2);
+  --contour-strong: rgba(140, 104, 58, 0.34);
+
+  /* Bandes de température (froid → chaud) */
+  --t-cold: #3f6fae;
+  --t-cool: #9fbcd9;
+  --t-mid: #f1efe6;
+  --t-warm: #e3a46a;
+  --t-hot: #b8432c;
+
+  /* Typographie : serif de titrage, serif de lecture, capitales de carte */
+  --font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --font-body: "Alegreya", "Iowan Old Style", Georgia, serif;
+  --font-mono: "Alegreya Sans", "Gill Sans", "Trebuchet MS", sans-serif;
+  --font-sc: "Alegreya Sans SC", "Alegreya Sans", "Gill Sans", sans-serif;
+  --font-ui: "Alegreya Sans", "Gill Sans", "Trebuchet MS", sans-serif;
+
+  --measure: 62ch;
+  --maxw: 1180px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f171c;
+    --surface: #142027;
+    --ink: #e7eded;
+    --ink-2: #b6c2c5;
+    --muted: #8c9ca3;
+    --line: #24323a;
+    --axis: #3b4c55;
+    --accent: #e3a43a;
+    --accent-ink: #1a1203;
+    --p1889: #5b8ddc;
+    --p2005: #c4840e;
+    --plant: #4f9d68;
+    --forest: #1f7d52;
+    --grass: #909f2a;
+    --rock: #b3523f;
+    --ridge-far: #17232b;
+    --ridge-mid: #1c2b34;
+    --ridge-near: #22343d;
+    --snow: #2c3c45;
+    --contour: rgba(214, 180, 120, 0.09);
+    --contour-strong: rgba(214, 180, 120, 0.17);
+    --t-cold: #2f5f9f;
+    --t-cool: #34506b;
+    --t-mid: #2a3337;
+    --t-warm: #8d5a33;
+    --t-hot: #b24a33;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f171c;
+  --surface: #142027;
+  --ink: #e7eded;
+  --ink-2: #b6c2c5;
+  --muted: #8c9ca3;
+  --line: #24323a;
+  --axis: #3b4c55;
+  --accent: #e3a43a;
+  --accent-ink: #1a1203;
+  --p1889: #5b8ddc;
+  --p2005: #c4840e;
+  --plant: #4f9d68;
+  --forest: #1f7d52;
+  --grass: #909f2a;
+  --rock: #b3523f;
+  --ridge-far: #17232b;
+  --ridge-mid: #1c2b34;
+  --ridge-near: #22343d;
+  --snow: #2c3c45;
+  --contour: rgba(214, 180, 120, 0.09);
+  --contour-strong: rgba(214, 180, 120, 0.17);
+  --t-cold: #2f5f9f;
+  --t-cool: #34506b;
+  --t-mid: #2a3337;
+  --t-warm: #8d5a33;
+  --t-hot: #b24a33;
+  color-scheme: dark;
+}
+
+/* ---------- Base typographique ---------- */
+
+body {
+  font-size: 1.1875rem;
+  line-height: 1.62;
+  font-feature-settings: "kern", "liga", "onum";
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.source {
+  margin: 0;
+  font: 400 0.875rem/1.5 var(--font-ui);
+  color: var(--muted);
+  max-width: 80ch;
+}
+
+.source i {
+  font-style: italic;
+}
+
+/* ---------- Barre du haut ---------- */
+
+.topbar__inner {
+  min-height: 52px;
+}
+
+.brand {
+  font: 600 1.25rem/1 var(--font-display);
+  letter-spacing: 0.005em;
+}
+
+.sitenav a,
+.codelink {
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+}
+
+/* ---------- Ouverture ---------- */
+
+.opener {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+.opener__contours {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.opener__text {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  padding-block: 40px 0;
+}
+
+.headline {
+  max-width: 27ch;
+  font-size: clamp(2.2rem, 1.25rem + 2.75vw, 3.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+.opener__meta {
+  display: grid;
+  grid-template-columns: minmax(0, 62ch) auto;
+  align-items: end;
+  gap: 8px 48px;
+}
+
+.standfirst {
+  font-size: clamp(1.15rem, 1.05rem + 0.35vw, 1.35rem);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.byline {
+  font: 500 1rem/1.3 var(--font-sc);
+  letter-spacing: 0.04em;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.panorama {
+  position: relative;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+  padding-bottom: 22px;
+}
+
+.panorama__plot > svg,
+.stage > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+@media (max-width: 760px) {
+  .opener__meta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .opener__text {
+    padding-top: 28px;
+  }
+}
+
+/* ---------- Marques SVG ---------- */
+
+svg text,
+.nohit {
+  pointer-events: none;
+}
+
+.f-p1889 {
+  fill: var(--p1889);
+}
+
+.f-p2005 {
+  fill: var(--p2005);
+}
+
+.f-plant {
+  fill: var(--plant);
+}
+
+.s-p1889 {
+  stroke: var(--p1889);
+}
+
+.s-p2005 {
+  stroke: var(--p2005);
+}
+
+.s-plant {
+  stroke: var(--plant);
+}
+
+.f-forest {
+  fill: var(--forest);
+}
+
+.f-grass {
+  fill: var(--grass);
+}
+
+.f-rock {
+  fill: var(--rock);
+}
+
+.ring {
+  stroke: var(--bg);
+  stroke-width: 2;
+}
+
+.ring--strong {
+  stroke-width: 2.5;
+}
+
+.on-surface .ring {
+  stroke: var(--surface);
+}
+
+.ridge--far {
+  fill: var(--ridge-far);
+}
+
+.ridge--mid {
+  fill: var(--ridge-mid);
+}
+
+.ridge--near {
+  fill: var(--ridge-near);
+}
+
+.ridge--snow {
+  fill: var(--snow);
+}
+
+.ridge-line {
+  fill: none;
+  stroke: var(--axis);
+  stroke-width: 1;
+}
+
+/* Écritures de carte : noms en petites capitales, cotes en chiffres italiques */
+.map-name {
+  fill: var(--ink-2);
+  font: 500 12.5px/1 var(--font-sc);
+  letter-spacing: 0.06em;
+}
+
+.map-height {
+  fill: var(--ink-2);
+  font: italic 500 12.5px/1 var(--font-ui);
+}
+
+.elev-label {
+  fill: var(--muted);
+  font: 500 12px/1 var(--font-ui);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.specimen-label {
+  fill: var(--ink);
+  font: italic 500 14px/1 var(--font-body);
+}
+
+.specimen-value {
+  fill: var(--ink-2);
+  font: 500 12.5px/1 var(--font-ui);
+  font-variant-numeric: lining-nums;
+}
+
+.callout {
+  fill: var(--ink);
+  font: 700 15px/1 var(--font-ui);
+  font-variant-numeric: lining-nums;
+}
+
+.callout-sub {
+  fill: var(--ink-2);
+  font: 400 13px/1 var(--font-ui);
+}
+
+.axis text,
+.chart-label {
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.stem {
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.stem--neutral {
+  stroke: var(--axis);
+}
+
+.arrow {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.arrow--climate {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.arrow--bees {
+  stroke: var(--p2005);
+  stroke-width: 6;
+}
+
+.arrow--plants {
+  stroke: var(--plant);
+  stroke-width: 6;
+}
+
+.arrowhead {
+  fill: var(--ink);
+}
+
+.guide {
+  stroke: var(--axis);
+  stroke-width: 1;
+  fill: none;
+}
+
+.guide--dash {
+  stroke-dasharray: 3 4;
+}
+
+.zero-line {
+  stroke: var(--axis);
+  stroke-width: 1;
+}
+
+.ci-band {
+  opacity: 0.16;
+}
+
+.line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.line--ink {
+  stroke: var(--ink-2);
+  stroke-width: 1.5;
+}
+
+.line--trend {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+}
+
+.crosshair {
+  stroke: var(--ink-2);
+  stroke-width: 1;
+  pointer-events: none;
+}
+
+.hover-dot {
+  fill: var(--ink);
+  stroke: var(--bg);
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.overlay {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.overlay:focus-visible {
+  outline: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.row-hit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.row-hit:hover,
+.row-hit:focus-visible,
+.row-hit.is-selected {
+  fill: color-mix(in oklab, var(--accent) 9%, transparent);
+  outline: none;
+}
+
+.hollow {
+  fill: var(--bg);
+  stroke-width: 2.5;
+}
+
+.band-label {
+  fill: var(--ink-2);
+  font: 500 12px/1 var(--font-ui);
+  font-variant-numeric: lining-nums;
+}
+
+.halo {
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.zone-label {
+  fill: var(--ink);
+  font: 500 12.5px/1 var(--font-sc);
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Récit déroulant ---------- */
+
+.scrolly {
+  border-bottom: 1px solid var(--line);
+}
+
+.scrolly__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  gap: 56px;
+}
+
+.scrolly__steps {
+  grid-column: 1;
+  grid-row: 1;
+  padding-block: 24vh 34vh;
+}
+
+.scrolly__graphic {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.scrolly__sticky {
+  position: sticky;
+  top: calc(var(--topbar-h) + 2vh);
+  height: calc(100vh - var(--topbar-h) - 4vh);
+  display: grid;
+  align-content: center;
+  gap: 10px;
+}
+
+.step {
+  min-height: 72vh;
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  max-width: 34rem;
+  transition: opacity 400ms ease;
+}
+
+/* Les étapes ne s'estompent que pendant la lecture du récit (rendu au repos : tout est lisible) */
+.scrolly.is-live .step {
+  opacity: 0.36;
+}
+
+.scrolly.is-live .step.is-active {
+  opacity: 1;
+}
+
+.step__title {
+  font-size: clamp(1.6rem, 1.25rem + 1.2vw, 2.15rem);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.step p {
+  color: var(--ink-2);
+}
+
+@media (max-width: 900px) {
+  .scrolly__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .scrolly__graphic,
+  .scrolly__steps {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .scrolly__sticky {
+    top: var(--topbar-h);
+    height: 58vh;
+    padding-top: 8px;
+    align-content: start;
+  }
+
+  .scrolly__sticky .source {
+    display: none;
+  }
+
+  .scrolly__steps {
+    position: relative;
+    z-index: 2;
+    padding-block: 52vh 30vh;
+  }
+
+  .step,
+  .scrolly.is-live .step {
+    min-height: 80vh;
+    align-content: end;
+    opacity: 1;
+  }
+
+  .step > * {
+    background: var(--bg);
+  }
+
+  .step {
+    padding: 0;
+  }
+
+  .step__title,
+  .step p {
+    padding: 0 4px;
+  }
+
+  .step p {
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+/* ---------- Bande sombre (réchauffement) : même rendu dans les deux thèmes ---------- */
+
+.band {
+  --bg: #101a20;
+  --surface: #16232a;
+  --ink: #eef2f1;
+  --ink-2: #c3cdcf;
+  --muted: #93a3a9;
+  --line: #27363e;
+  --axis: #435660;
+  --accent: #e8a93d;
+  --t-cold: #2f63a8;
+  --t-cool: #5a86bd;
+  --t-mid: #e9e6dc;
+  --t-warm: #e0875e;
+  --t-hot: #b3301f;
+  color-scheme: dark;
+  background: var(--bg);
+  color: var(--ink);
+  padding-block: 88px 64px;
+}
+
+.band__text {
+  display: grid;
+  gap: 16px;
+}
+
+.band__text p {
+  max-width: var(--measure);
+  color: var(--ink-2);
+}
+
+.stripes {
+  margin-block: 36px 12px;
+}
+
+.stripes > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.band__fig {
+  margin-top: 8px;
+}
+
+.band .dataview,
+.band .dataview > summary {
+  color: var(--ink-2);
+}
+
+/* ---------- Chapitres ---------- */
+
+.chapter {
+  padding-block: 96px 80px;
+}
+
+.chapter + .chapter {
+  border-top: 1px solid var(--line);
+}
+
+.chapter__text {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 36px;
+}
+
+.chapter__text p {
+  max-width: var(--measure);
+  color: var(--ink-2);
+}
+
+.chapter__title {
+  max-width: 22ch;
+  font-size: clamp(2rem, 1.4rem + 2vw, 3.05rem);
+  line-height: 1.04;
+  letter-spacing: -0.008em;
+  text-wrap: balance;
+}
+
+.chapter__title--small {
+  font-size: clamp(1.7rem, 1.3rem + 1.3vw, 2.3rem);
+}
+
+.chapter--close .chapter__text {
+  margin-bottom: 0;
+}
+
+/* Explorateur d'espèces */
+.explorer {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.explorer__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+.explorer__hint {
+  font: 400 0.9375rem/1.4 var(--font-ui);
+  color: var(--muted);
+}
+
+.seg button {
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+}
+
+.specimen {
+  display: grid;
+  gap: 12px;
+  padding-left: 28px;
+  border-left: 1px solid var(--line);
+  min-width: 0;
+}
+
+.specimen select {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  width: 100%;
+}
+
+.specimen__name {
+  font-size: 1.9rem;
+  font-style: italic;
+  line-height: 1.1;
+}
+
+.specimen__text {
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+@media (max-width: 900px) {
+  .explorer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .specimen {
+    padding-left: 0;
+    padding-top: 24px;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
+
+/* Passage calme */
+.quiet {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 56px;
+  align-items: center;
+}
+
+.quiet__text {
+  display: grid;
+  gap: 16px;
+}
+
+.quiet__text p {
+  color: var(--ink-2);
+}
+
+@media (max-width: 900px) {
+  .quiet {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+}
+
+/* ---------- Détails repliés ---------- */
+
+.details-zone {
+  border-top: 1px solid var(--line);
+  padding-block: 40px 72px;
+}
+
+.more > summary {
+  cursor: pointer;
+  width: fit-content;
+  font: 500 1.05rem/1.4 var(--font-ui);
+  color: var(--ink);
+}
+
+.more__body {
+  display: grid;
+  gap: 56px;
+  margin-top: 36px;
+}
+
+.more .fig__title {
+  font: 600 1.35rem/1.2 var(--font-display);
+}
+
+.landuse {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.landuse__title {
+  font: 500 0.95rem/1.3 var(--font-sc);
+  letter-spacing: 0.04em;
+  color: var(--ink);
+}
+
+.plants {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: 40px;
+  margin-top: 12px;
+}
+
+@media (max-width: 760px) {
+  .landuse,
+  .plants {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Pied de page ---------- */
+
+.footer {
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+}
+
+.footer h2 {
+  font: 600 1.15rem/1.2 var(--font-display);
+  color: var(--ink);
+}
+
+/* ---------- Infobulle et vue tableau dans la police d'interface ---------- */
+
+.tip,
+.dataview,
+.legend {
+  font-family: var(--font-ui);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step {
+    opacity: 1;
+    transition: none;
+  }
+}
