@@ -3,7 +3,7 @@
 En 115 ans, la vallée de Gavarnie s'est réchauffée de 2,3 °C et les bourdons butinent en moyenne
 **118 m plus haut** qu'en 1889, soit près de quatre fois moins que la montée des isothermes (≈ 440 m).
 
-[![Affiche du projet : profil de montagne sur lequel les 12 espèces de bourdons passent de leur altitude de 1889 à celle de 2005-06, à côté de la montée des isothermes](assets/cover.png)](https://youssefmir.github.io/Analysis-of-pollination-in-the-Pyrenees-main/)
+[![Ouverture du site : titre, chapô et panorama des Pyrénées sur lequel les 12 espèces de bourdons montent de leur altitude de 1889 à celle de 2005-06, à côté de la montée des températures](assets/cover.png)](https://youssefmir.github.io/Analysis-of-pollination-in-the-Pyrenees-main/)
 
 **[Voir le site interactif](https://youssefmir.github.io/Analysis-of-pollination-in-the-Pyrenees-main/)** · [Lire le notebook](https://github.com/youssefmir/Analysis-of-pollination-in-the-Pyrenees-main/blob/main/notebooks/bourdons_pyrenees.ipynb) · [Données](#données)
 
@@ -23,7 +23,7 @@ Marshall *et al.* (2020). On compare deux inventaires de bourdons de la vallée 
 l'équipe de Koos Biesmeijer. La question : les bourdons et les fleurs qu'ils pollinisent ont-ils
 suivi le réchauffement en montant en altitude ? Le dépôt contient :
 
-- un site interactif (`docs/`) ;
+- un site interactif (`docs/`) : récit déroulant sur la montagne (températures, bourdons, fleurs, forêt), rayures climatiques animées, explorateur des 12 espèces ;
 - le notebook commenté, qui répond une à une aux questions de l'énoncé (`notebooks/`) ;
 - un package Python testé (`src/bumblebees`).
 
