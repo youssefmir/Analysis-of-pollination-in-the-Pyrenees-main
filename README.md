@@ -3,9 +3,9 @@
 En 115 ans, la vallée de Gavarnie s'est réchauffée de 2,3 °C et les bourdons butinent en moyenne
 **118 m plus haut** qu'en 1889, soit près de quatre fois moins que la montée des isothermes (≈ 440 m).
 
-[![Ouverture du site : titre, chapô et panorama des Pyrénées sur lequel les 12 espèces de bourdons montent de leur altitude de 1889 à celle de 2005-06, à côté de la montée des températures](assets/cover.png)](https://youssefmir.github.io/Analysis-of-pollination-in-the-Pyrenees-main/)
+[![Ouverture du site : titre, chapô et panorama des Pyrénées sur lequel les 12 espèces de bourdons montent de leur altitude de 1889 à celle de 2005-06, à côté de la montée des températures](assets/cover.png)](https://pollination-pyrenees.vercel.app/)
 
-**[Voir le site interactif](https://youssefmir.github.io/Analysis-of-pollination-in-the-Pyrenees-main/)** · [Lire le notebook](https://github.com/youssefmir/Analysis-of-pollination-in-the-Pyrenees-main/blob/main/notebooks/bourdons_pyrenees.ipynb) · [Données](#données)
+**[Voir le site interactif](https://pollination-pyrenees.vercel.app/)** · [Lire le notebook](https://github.com/youssefmir/Analysis-of-pollination-in-the-Pyrenees-main/blob/main/notebooks/bourdons_pyrenees.ipynb) · [Données](#données)
 
 ## En bref
 
@@ -44,6 +44,12 @@ jupyter notebook notebooks/bourdons_pyrenees.ipynb
 
 L'installation prend une à deux minutes. Le notebook s'exécute en entier en une dizaine de
 secondes, y compris les 1 000 rééchantillonnages.
+
+## Déploiement
+
+Le site est hébergé sur [Vercel](https://pollination-pyrenees.vercel.app/). Chaque push sur
+`main` déclenche sa publication automatique. La configuration `vercel.json` sert directement
+le dossier `docs/`, sans compilation ni installation Python.
 
 ## Utilisation
 
@@ -128,7 +134,7 @@ viennent du dépôt [lmar116/PyreneesBumblebees](https://github.com/lmar116/Pyre
 │   ├── plotting.py              style et figures du notebook
 │   └── site.py                  export des résultats pour le site
 ├── scripts/build_site_data.py   régénère docs/data.js
-├── docs/                        site interactif (GitHub Pages)
+├── docs/                        site interactif (Vercel)
 ├── tests/                       tests unitaires (pytest)
 ├── assets/                      visuel de couverture, figures, illustrations
 ├── references/                  article de Marshall et al. (2020)
